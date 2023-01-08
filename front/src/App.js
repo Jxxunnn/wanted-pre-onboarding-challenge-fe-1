@@ -1,8 +1,10 @@
+import Router from "./router/Router";
+
 function App() {
   return (
-    <div className="App">
-      <h1>하이루</h1>
-    </div>
+    <Router>
+      <div className="App" />
+    </Router>
   );
 }
 
