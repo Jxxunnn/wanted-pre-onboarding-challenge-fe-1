@@ -1,3 +1,7 @@
 {
-  "extends": ["react-app", "naver", "prettier"]
+  "extends": ["react-app", "naver", "prettier"],
+  "rules": {
+    "no-unused-vars": 1,
+    "no-use-before-define": 1
+  }
 }
