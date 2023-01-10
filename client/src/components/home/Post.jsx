@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { createTodo, updateTodo } from "../../apis/home/handleTodo";
 
-export default function Modal() {
+export default function Post({ onSaveData }) {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
   });
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    onSaveData(formData);
+    setFormData({
+      title: "",
+      content: "",
+    });
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +33,7 @@ export default function Modal() {
           type="text"
           name="title"
           id="title"
+          value={formData.title || ""}
         />
       </label>
       <label>
@@ -38,9 +44,10 @@ export default function Modal() {
           type="text"
           name="content"
           id="title"
+          value={formData.content || ""}
         />
       </label>
-      <button type="button">저장</button>
+      <button type="submit">저장</button>
     </form>
   );
 }
