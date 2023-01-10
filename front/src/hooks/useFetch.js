@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import API from "../apis/api";
 import { getToken } from "../utils/handleToken";
 
-const useFetch = (path, deps = []) => {
+const useFetch = (path) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -12,9 +12,9 @@ const useFetch = (path, deps = []) => {
         Authorization: getToken(),
       },
     }).then((res) => setData(res.data.data));
-  }, deps);
+  }, []);
 
-  return [data];
+  return [data, setData];
 };
 
 export default useFetch;
