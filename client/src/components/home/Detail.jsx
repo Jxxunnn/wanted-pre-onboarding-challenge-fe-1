@@ -1,5 +1,4 @@
 import React from "react";
-import { create } from "ts-node";
 
 export default function Detail({ title, content, createdAt, updatedAt }) {
   return (
