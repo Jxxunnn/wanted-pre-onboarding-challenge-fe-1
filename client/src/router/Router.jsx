@@ -22,6 +22,7 @@ export default function Router() {
       <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<LoginPage type="login" />} />
       <Route path="/auth/signUp" element={<LoginPage type="signUp" />} />
+      <Route path="/:todoId" element={<HomePage />} />
     </Routes>
   );
 }
