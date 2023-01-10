@@ -10,6 +10,7 @@ import {
   createTodo,
   updateTodo,
 } from "../../apis/home/handleTodo";
+import { removeToken } from "../../utils/handleToken";
 
 export default function HomePage() {
   const [todos, setTodos] = useFetch("/todos");
@@ -66,6 +67,8 @@ export default function HomePage() {
           cancelEdit={cancelEdit}
         ></Modal>
       ) : null}
+      <hr />
+      <button onClick={removeToken}>로그아웃</button>
     </section>
   );
 }
