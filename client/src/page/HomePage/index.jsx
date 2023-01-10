@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Todos from "../../components/home/Todos";
 import Detail from "../../components/home/Detail";
 import Post from "../../components/home/Post";
@@ -22,6 +23,11 @@ export default function HomePage() {
     updatedAt: "",
     id: "",
   });
+  const { todoId } = useParams();
+
+  useEffect(() => {
+    getTodo(todoId, setSelectedTodo);
+  }, [todoId]);
 
   const handleRemove = (id) => {
     deleteTodo(id, setTodos);
@@ -51,6 +57,7 @@ export default function HomePage() {
   return (
     <section>
       <h1>투두 리스트</h1>
+      <hr />
       <Todos
         todos={todos}
         handleRemove={handleRemove}
@@ -58,8 +65,9 @@ export default function HomePage() {
         selectTodo={selectTodo}
       />
       <Post onSaveData={onSaveData} />
-      <hr />
+
       <Detail {...selectedTodo} />
+
       {isEditOn === true ? (
         <Modal
           selectedTodo={selectedTodo}
