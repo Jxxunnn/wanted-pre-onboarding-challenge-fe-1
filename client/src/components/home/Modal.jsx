@@ -30,7 +30,8 @@ export default function Modal({ selectedTodo, cancelEdit, onEditData }) {
         alignItems: "center",
         textAlign: "center",
         height: "100vh",
-        backgroundColor: "rgba( 255, 255, 255, 0.7 )",
+        backgroundColor: "rgba( 0, 0, 0, 0.9 )",
+        color: "white",
       }}
     >
       <h2>투두 수정하기</h2>
@@ -39,7 +40,6 @@ export default function Modal({ selectedTodo, cancelEdit, onEditData }) {
           TITLE
           <input
             onChange={handleChange}
-            style={{ marginLeft: "35px", width: "200px" }}
             defaultValue={selectedTodo.title}
             type="text"
             name="title"
@@ -50,14 +50,15 @@ export default function Modal({ selectedTodo, cancelEdit, onEditData }) {
           CONTENT
           <textarea
             onChange={handleChange}
-            style={{ width: "200px", height: "50px" }}
             defaultValue={selectedTodo.content}
             type="text"
             name="content"
             id="content"
           />
         </label>
-        <button type="submit">수정</button>
+        <button style={{ marginRight: "100px" }} type="submit">
+          수정
+        </button>
         <button onClick={cancelEdit} type="button">
           취소
         </button>

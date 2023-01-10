@@ -24,12 +24,11 @@ export default function Post({ onSaveData }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+    <form onSubmit={handleSubmit} style={{ margin: "20px 10px" }}>
       <label style={{ display: "block" }} htmlFor="title">
         TITLE
         <input
           onChange={handleChange}
-          style={{ marginLeft: "35px", width: "200px" }}
           type="text"
           name="title"
           id="title"
@@ -40,7 +39,7 @@ export default function Post({ onSaveData }) {
         CONTENT
         <textarea
           onChange={handleChange}
-          style={{ width: "200px", height: "50px" }}
+          style={{ height: "100px" }}
           type="text"
           name="content"
           id="title"
