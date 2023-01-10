@@ -14,7 +14,7 @@ export default function Todo({
     handleRemove(id);
   };
   const onEdit = () => {
-    handleEdit(title, content);
+    handleEdit(id);
   };
   const onSelect = () => {
     selectTodo(id);
