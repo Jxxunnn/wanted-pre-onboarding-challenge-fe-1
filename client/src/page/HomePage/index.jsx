@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import Todos from "../../components/home/Todos";
 import Detail from "../../components/home/Detail";
 import Post from "../../components/home/Post";
+import Modal from "../../components/home/Modal";
 import useFetch from "../../hooks/useFetch";
-import { getTodo, deleteTodo } from "../../apis/home/handleTodo";
+import {
+  getTodo,
+  deleteTodo,
+  createTodo,
+  updateTodo,
+} from "../../apis/home/handleTodo";
 
 export default function HomePage() {
   const [todos, setTodos] = useFetch("/todos");
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEditOn, setIsEditOn] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState({
     title: "",
     content: "",
@@ -16,35 +22,29 @@ export default function HomePage() {
     id: "",
   });
 
-  const handlePost = () => {
-    setIsEdit(!isEdit);
-  };
-
   const handleRemove = (id) => {
-    setTodos(...[todos.filter((item) => item.id !== id)]);
-    deleteTodo(id);
+    deleteTodo(id, setTodos);
   };
 
-  const handleEdit = (title, content) => {
-    setIsEdit(true);
-    setSelectedTodo({
-      title,
-      content,
+  const handleEdit = (id) => {
+    getTodo(id, setSelectedTodo).then(() => {
+      setIsEditOn(true);
     });
+  };
+  const cancelEdit = () => {
+    setIsEditOn(false);
   };
 
   const onSaveData = (data) => {
-    setTodos(
-      todos.map((item) =>
-        data.id === item.id
-          ? { title: item.title, content: item.content }
-          : item,
-      ),
-    );
+    createTodo(data, setTodos);
+  };
+
+  const onEditData = (data, id) => {
+    updateTodo(data, id, setTodos);
   };
 
   const selectTodo = (id) => {
-    getTodo(id);
+    getTodo(id, setSelectedTodo);
   };
 
   return (
@@ -56,12 +56,16 @@ export default function HomePage() {
         handleEdit={handleEdit}
         selectTodo={selectTodo}
       />
-      <button onClick={handlePost} type="button">
-        {isEdit ? "닫기" : "추가"}
-      </button>
-      {isEdit ? <Post setTodos={setTodos} /> : null}
+      <Post onSaveData={onSaveData} />
       <hr />
       <Detail {...selectedTodo} />
+      {isEditOn === true ? (
+        <Modal
+          selectedTodo={selectedTodo}
+          onEditData={onEditData}
+          cancelEdit={cancelEdit}
+        ></Modal>
+      ) : null}
     </section>
   );
 }
