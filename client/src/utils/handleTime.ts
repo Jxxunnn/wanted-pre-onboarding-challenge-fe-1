@@ -1,4 +1,4 @@
-const parseTime = (format) => {
+const parseTime = (format: string) => {
   if (!format) return null;
   const timestamp = Date.parse(format);
   const date = new Date(timestamp);

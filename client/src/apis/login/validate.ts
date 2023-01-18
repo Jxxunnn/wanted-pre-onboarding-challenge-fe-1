@@ -1,7 +1,10 @@
 import API from "../api";
 import { getToken, setToken } from "../../utils/handleToken";
 
-const validate = async (state = {}, type) => {
+const validate = async (
+  state: { id: string; password: string },
+  type: string,
+) => {
   let auth;
 
   if (type === "login") {

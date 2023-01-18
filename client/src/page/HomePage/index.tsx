@@ -13,15 +13,20 @@ import {
 } from "../../apis/home/handleTodo";
 import { removeToken } from "../../utils/handleToken";
 
+interface formType {
+  title: string;
+  content: string;
+}
+
 export default function HomePage() {
   const [todos, setTodos] = useFetch("/todos");
   const [isEditOn, setIsEditOn] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState({
     title: "",
     content: "",
+    id: "",
     createdAt: "",
     updatedAt: "",
-    id: "",
   });
   const { todoId } = useParams();
 
@@ -29,11 +34,11 @@ export default function HomePage() {
     getTodo(todoId, setSelectedTodo);
   }, [todoId]);
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     deleteTodo(id, setTodos);
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = (id: string) => {
     getTodo(id, setSelectedTodo).then(() => {
       setIsEditOn(true);
     });
@@ -42,15 +47,15 @@ export default function HomePage() {
     setIsEditOn(false);
   };
 
-  const onSaveData = (data) => {
+  const onSaveData = (data: formType) => {
     createTodo(data, setTodos);
   };
 
-  const onEditData = (data, id) => {
+  const onEditData = (data: formType, id: string) => {
     updateTodo(data, id, setTodos);
   };
 
-  const selectTodo = (id) => {
+  const selectTodo = (id: string) => {
     getTodo(id, setSelectedTodo);
   };
 

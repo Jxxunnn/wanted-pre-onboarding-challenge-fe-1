@@ -1,7 +1,14 @@
 import React from "react";
 import parseTime from "../../utils/handleTime";
 
-export default function Detail({ title, content, createdAt, updatedAt }) {
+export default function Detail({
+  title,
+  content,
+  createdAt,
+  updatedAt,
+}: {
+  [key: string]: string;
+}) {
   return (
     <article>
       <h2>제목: {title}</h2>

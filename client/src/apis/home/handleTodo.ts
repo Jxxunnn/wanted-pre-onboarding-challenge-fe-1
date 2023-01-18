@@ -1,7 +1,21 @@
+import React from "react";
 import API from "../api";
 import { getToken } from "../../utils/handleToken";
 
-const createTodo = async (state = {}, setState = (nextState) => {}) => {
+const createTodo = async (
+  state = { title: "", content: "" },
+  setState: React.Dispatch<
+    React.SetStateAction<
+      {
+        title: string;
+        content: string;
+        id: string;
+        createdAt: string;
+        updatedAt: string;
+      }[]
+    >
+  >,
+) => {
   try {
     await API.post(
       "/todos",
@@ -21,7 +35,20 @@ const createTodo = async (state = {}, setState = (nextState) => {}) => {
     throw new Error("투두 생성을 실패했습니다.");
   }
 };
-const deleteTodo = async (id, setState) => {
+const deleteTodo = async (
+  id: string,
+  setState: React.Dispatch<
+    React.SetStateAction<
+      {
+        title: string;
+        content: string;
+        id: string;
+        createdAt: string;
+        updatedAt: string;
+      }[]
+    >
+  >,
+) => {
   try {
     await API.delete(`/todos/${id}`, {
       headers: {
@@ -34,7 +61,21 @@ const deleteTodo = async (id, setState) => {
     throw new Error("투두 삭제를 실패했습니다.");
   }
 };
-const updateTodo = async (state = {}, id, setState = (nextState) => {}) => {
+const updateTodo = async (
+  state = { title: "", content: "" },
+  id: string,
+  setState: React.Dispatch<
+    React.SetStateAction<
+      {
+        title: string;
+        content: string;
+        id: string;
+        createdAt: string;
+        updatedAt: string;
+      }[]
+    >
+  >,
+) => {
   try {
     await API.put(
       `/todos/${id}`,
@@ -55,7 +96,18 @@ const updateTodo = async (state = {}, id, setState = (nextState) => {}) => {
   }
 };
 
-const getTodo = async (id, setState = (nextState) => {}) => {
+const getTodo = async (
+  id: string | undefined,
+  setState: React.Dispatch<
+    React.SetStateAction<{
+      title: string;
+      content: string;
+      id: string;
+      createdAt: string;
+      updatedAt: string;
+    }>
+  >,
+) => {
   try {
     const res = await API.get(`/todos/${id}`, {
       headers: {
@@ -69,7 +121,19 @@ const getTodo = async (id, setState = (nextState) => {}) => {
   }
 };
 
-const getTodos = async (setState = () => {}) => {
+const getTodos = async (
+  setState: React.Dispatch<
+    React.SetStateAction<
+      {
+        title: string;
+        content: string;
+        id: string;
+        createdAt: string;
+        updatedAt: string;
+      }[]
+    >
+  >,
+) => {
   try {
     const res = await API.get("/todos", {
       headers: {

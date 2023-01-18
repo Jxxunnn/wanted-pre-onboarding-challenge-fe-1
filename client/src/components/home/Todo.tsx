@@ -10,6 +10,15 @@ export default function Todo({
   handleRemove,
   handleEdit,
   selectTodo,
+}: {
+  title: string;
+  content: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  handleRemove: (x: string) => void;
+  handleEdit: (x: string) => void;
+  selectTodo: (x: string) => void;
 }) {
   const navigate = useNavigate();
   const onRemove = () => {

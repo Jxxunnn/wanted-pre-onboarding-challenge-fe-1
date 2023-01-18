@@ -1,26 +1,39 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 
-export default function Post({ onSaveData }) {
+interface formType {
+  title: string;
+  content: string;
+}
+
+export default function Post({
+  onSaveData,
+}: {
+  onSaveData: (data: formType) => void;
+}) {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSaveData(formData);
-    setFormData({
-      title: "",
-      content: "",
-    });
+  const handleSubmit = (e: FormEvent) => {
+    if (e.target instanceof HTMLFormElement) {
+      e.preventDefault();
+      onSaveData(formData);
+      setFormData({
+        title: "",
+        content: "",
+      });
+    }
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: ChangeEvent) => {
+    if (e.target instanceof HTMLInputElement) {
+      const { name, value } = e.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -40,7 +53,6 @@ export default function Post({ onSaveData }) {
         <textarea
           onChange={handleChange}
           style={{ height: "100px" }}
-          type="text"
           name="content"
           id="title"
           value={formData.content || ""}

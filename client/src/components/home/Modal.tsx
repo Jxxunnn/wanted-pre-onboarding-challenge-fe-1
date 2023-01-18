@@ -1,22 +1,38 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import useEdit from "../../hooks/useEdit";
 
-export default function Modal({ selectedTodo, cancelEdit, onEditData }) {
+export default function Modal({
+  selectedTodo,
+  cancelEdit,
+  onEditData,
+}: {
+  selectedTodo: {
+    title: string;
+    content: string;
+    id: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  cancelEdit: () => void;
+  onEditData: (data: { title: string; content: string }, id: string) => void;
+}) {
   const [formData, setFormData] = useEdit(selectedTodo);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onEditData(formData, selectedTodo.id);
     cancelEdit();
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (e: ChangeEvent) => {
+    if (e.target instanceof HTMLInputElement) {
+      const { name, value } = e.target;
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   return (
@@ -51,7 +67,6 @@ export default function Modal({ selectedTodo, cancelEdit, onEditData }) {
           <textarea
             onChange={handleChange}
             defaultValue={selectedTodo.content}
-            type="text"
             name="content"
             id="content"
           />
